@@ -1,12 +1,23 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include "economia.h"
+
+//cores
+#define RESET   "\x1b[0m"
+#define RED     "\x1b[31m"
+#define GREEN   "\x1b[32m"
+#define YELLOW  "\x1b[33m"
+#define BLUE    "\x1b[34m"
+#define MAGENTA "\x1b[35m"
+#define CYAN    "\x1b[36m"
 
 // Definição de constantes
 #define MAX_ANOS 60
 #define SALDO_INICIAL 0
 #define NOME_ARQUIVO "recordes.txt"
-#define JOGO_ARQUIVO "jogo_salvo.txt"
+
+int valor_economia = 3;
 
 // Estrutura para armazenar dados do jogador
 typedef struct {
@@ -19,29 +30,35 @@ typedef struct {
     int trabalho_atual;
 } Jogador;
 
-// Funções auxiliares
-void salvar_jogo(const Jogador *jogador) {
-    FILE *arquivo = fopen(JOGO_ARQUIVO, "w");
-    if (arquivo) {
-        fwrite(jogador, sizeof(Jogador), 1, arquivo);
-        fclose(arquivo);
-        printf("Jogo salvo com sucesso!\n");
-    } else {
-        printf("Erro ao salvar o jogo!\n");
-    }
-}
+void economia (int valor_sorteado){
+    int valor_economia = valor_sorteado;
 
-int carregar_jogo(Jogador *jogador) {
-    FILE *arquivo = fopen(JOGO_ARQUIVO, "r");
-    if (arquivo) {
-        fread(jogador, sizeof(Jogador), 1, arquivo);
-        fclose(arquivo);
-        printf("Jogo carregado com sucesso!\n");
-        return 1;
-    } else {
-        printf("Nenhum jogo salvo encontrado. Começando um novo jogo!\n");
-        return 0;
+    switch (valor_sorteado)
+    {
+    case 1:
+        printf(RED"$\n"RESET);
+        break;
+
+    case 2:
+        printf(RED"$$\n"RESET);
+        break;
+
+    case 3:
+        printf(YELLOW"$$$\n"RESET);
+        break;
+
+    case 4:
+        printf(GREEN"$$$$\n"RESET);
+        break;
+
+    case 5:
+        printf(GREEN"$$$$$\n"RESET);
+        break;
+    
+    default:
+        break;
     }
+
 }
 
 void salvar_recorde(const Jogador *jogador) {
@@ -89,7 +106,7 @@ void atualizar_saldo(Jogador *jogador) {
 }
 
 void opcoes_trabalho(Jogador *jogador) {
-    printf("\n--- Trabalhos ---\n");
+    printf(RED"\n--- Trabalhos ---\n"RESET);
     if (jogador->trabalho_atual == 1) {
         printf("Você é Estagiário (R$ 10.000 por ano).\n");
     } else if (jogador->trabalho_atual == 2) {
@@ -109,11 +126,12 @@ void opcoes_investimento(Jogador *jogador) {
     int opcao;
     double valor_investido;
 
-    printf("\n--- Investimentos ---\n");
+    printf(RED"\n--- Investimentos ---\n"RESET);
     printf("1. Poupança (0.5%% ao ano)\n");
     printf("2. CDB (5%% ao ano)\n");
     printf("3. Tesouro Direto (10%% ao ano)\n");
     printf("4. Retirar investimento\n");
+    printf("5. Voltar ao menu\n");
     printf("Escolha uma opção: ");
     scanf("%d", &opcao);
 
@@ -161,9 +179,19 @@ void opcoes_investimento(Jogador *jogador) {
             jogador->taxa_investimento = 0.0;
             break;
 
+        case 5:
+            break;
+
         default:
             printf("Opção inválida!\n");
     }
+}
+
+void menu_bar(Jogador *jogador){
+    printf("\033[1;32m\nAno %d\033[0m\n", jogador->anos + 1);
+        printf(MAGENTA "Situação economica: " RESET);
+        economia(proximo_numero(valor_economia)); 
+
 }
 
 // Função principal
@@ -171,8 +199,7 @@ int main() {
     Jogador jogador;
     int opcao;
 
-    // Inicialização
-    if (!carregar_jogo(&jogador)) {
+    // Inicialização  
         printf("Digite seu nome: ");
         scanf("%49s", jogador.nome);
         jogador.saldo = SALDO_INICIAL;
@@ -181,18 +208,18 @@ int main() {
         jogador.experiencia = 0;
         jogador.anos = 0;
         jogador.trabalho_atual = 1;
-    }
+
+        menu_bar(&jogador);   
 
     while (jogador.anos < MAX_ANOS) {
-        printf("\033[1;32m\nAno %d\033[0m\n", jogador.anos + 1);
-        printf("Saldo atual: %.2lf\n", jogador.saldo);
+              
+        printf("\nSaldo atual: %.2lf\n", jogador.saldo);
         if (jogador.investimento != 0) {
             printf("Investimento atual: %.2lf\n", jogador.investimento);
         }
         printf("1. Trabalhos\n");
         printf("2. Investimentos\n");
         printf("3. Avançar ano\n");
-        printf("4. Salvar e sair\n");
         printf("Escolha uma opção: ");
         scanf("%d", &opcao);
 
@@ -208,16 +235,14 @@ int main() {
             case 3:
                 atualizar_saldo(&jogador);
                 jogador.anos++;
-                printf("\nAvançando para o próximo ano...\n");
+                menu_bar(&jogador);
+                
                 break;
-
-            case 4:
-                salvar_jogo(&jogador);
-                return 0;
 
             default:
                 printf("Opção inválida!\n");
-        }
+        } //if
+
     }
 
     printf("\nFim do jogo!\n");
