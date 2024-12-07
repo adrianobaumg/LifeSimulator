@@ -1,67 +1,68 @@
 # Simulador de Vida
 
-Bem-vindo ao **Simulador de Vida**, um jogo simples e envolvente onde você gerencia sua carreira, investimentos e escolhas ao longo de 60 anos, buscando o maior saldo financeiro possível ao final da sua jornada.
+Bem-vindo ao **Simulador de Vida**, um jogo de estratégia financeira onde você gerencia sua carreira, investimentos e decisões ao longo de 60 anos, buscando maximizar seu saldo financeiro e deixar sua marca nos recordes do jogo.
 
-## 🎮 Sobre o jogo
+## 🎮 Sobre o Jogo
 
-No **Simulador de Vida**, você assume o papel de um personagem que inicia sua carreira como estagiário, com um saldo inicial de R$0. Durante o jogo, você poderá:
+No **Simulador de Vida**, você inicia sua jornada com um saldo de R$ 0 e assume o papel de um profissional em ascensão. Durante o jogo, você:
 
-- **Escolher e evoluir sua carreira profissional**
-- **Realizar investimentos financeiros**
-- **Tomar decisões estratégicas para equilibrar trabalho, investimentos e gastos**
+- **Escolhe e evolui sua carreira profissional**
+- **Realiza investimentos financeiros estratégicos**
+- **Toma decisões importantes para equilibrar trabalho, investimentos e gastos**
 
-Seu objetivo é maximizar seu saldo financeiro e deixar sua marca nos recordes do jogo.
+Seu objetivo é terminar o jogo com o maior saldo financeiro possível.
 
-## 🚀 Funcionalidades
+## 🚀 Novidades da Versão Atual
 
-- **Progresso na Carreira**:
-  - Estagiário: R$10.000/ano
-  - Analista: R$30.000/ano
-  - Gerente: R$60.000/ano
+- **Situação Econômica Aleatória**:
+  - Apresentada anualmente com uma barra de status colorida para indicar o impacto econômico.
   
-- **Opções de Investimento**:
+- **Opções de Investimento Refinadas**:
   - Poupança: 0,5% ao ano
   - CDB: 5% ao ano
   - Tesouro Direto: 10% ao ano
-  
-- **Sistema de Registro de Recordes**:
-  - Ao finalizar o jogo, seu saldo é salvo automaticamente em um arquivo de recordes para consulta futura.
 
-## 🛠️ Como executar
+- **Interface com Cores**:
+  - Melhor visualização com mensagens coloridas para um gameplay mais imersivo.
 
-1. Clone este repositório:
-   ```bash
-   git clone https://github.com/seu-usuario/simulador-vida.git
-   cd simulador-vida
-   ```
-
-2. Compile o jogo usando um compilador C (como `gcc`):
-   ```bash
-   gcc -o simulador main.c
-   ```
-
-3. Execute o jogo:
-   ```bash
-   ./simulador
-   ```
+- **Registro e Exibição de Recordes**:
+  - Salve automaticamente seu desempenho final em `recordes.txt` e confira o histórico dos melhores jogadores.
 
 ## 📚 Regras do Jogo
 
-1. O jogo é dividido em anos, e a cada ano você pode escolher entre:
-   - Trabalhar para ganhar dinheiro e acumular experiência.
-   - Investir parte do saldo em diferentes opções de investimento.
-   - Retirar seus investimentos.
+1. **Duração do Jogo**:
+   - O jogo é dividido em 60 anos, ou termina se você optar por sair.
 
-2. A experiência no trabalho é acumulada a cada ano. Após 5 anos no mesmo cargo, você é promovido automaticamente.
+2. **Progresso na Carreira**:
+   - Comece como estagiário (R$ 10.000/ano).
+   - Trabalhe por 5 anos no mesmo cargo para ser promovido automaticamente:
+     - Estagiário ➔ Analista (R$ 30.000/ano) ➔ Gerente (R$ 60.000/ano).
 
-3. O jogo termina após 60 anos ou se você optar por sair.
+3. **Investimentos**:
+   - Escolha entre Poupança, CDB ou Tesouro Direto para multiplicar seus ganhos.
+   - Retire seu investimento a qualquer momento para reinvestir ou utilizar os fundos.
 
-4. Seu saldo final será salvo e comparado com os recordes existentes.
+4. **Impactos Econômicos**:
+   - Situação econômica aleatória exibida anualmente pode influenciar suas decisões estratégicas.
+
+5. **Objetivo Final**:
+   - Maximize seu saldo financeiro ao final dos 60 anos.
 
 ## 📦 Estrutura do Projeto
 
-- **`main.c`**: Arquivo principal contendo toda a lógica do jogo.
-- **`recordes.txt`**: Arquivo gerado automaticamente que armazena os recordes de saldo final dos jogadores.
+- **`main.c`**: Código principal contendo as lógicas do jogo.
+- **`economia.h` e `economia.c`**: Módulo para cálculo de impacto econômico.
+- **`recordes.txt`**: Arquivo gerado automaticamente com o histórico de recordes.
+
+## 📈 Exemplo de Jogo
+
+1. Digite seu nome.
+2. Escolha ações a cada ano:
+   - Trabalhar para ganhar salário.
+   - Investir para obter rendimentos.
+   - Retirar investimentos.
+   - Avançar para o próximo ano.
+3. Acompanhe sua progressão e planeje suas escolhas com base no saldo atual, status econômico e oportunidades de carreira.
 
 ## 📝 Licença
 
